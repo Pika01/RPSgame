@@ -1,0 +1,22 @@
+body {
+  text-align: center;
+}
+
+.choice-image {
+  height: 60px;
+  margin: 5px;
+  border-radius: 50%;
+}
+
+.choice-button {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  border: none;
+  border-radius: 50%;
+  
+}
+
+.choice-button:active{
+  background-color: #5d5df6;
+}
