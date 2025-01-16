@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Rock Paper Scissors Game</title>
+  <link rel="stylesheet" href="RockPaperGame.css">
+</head>
+<body>
+  
+  <h1>Rock Paper Scissor Game</h1>
+  <button id="rock-button" class="choice-button" onclick="
+  let computerChoice = generateComputerChoice();
+  let winner = winnerDecleration('Rock',computerChoice)
+  winnerMsg('Rock' , computerChoice , winner)
+  "><img src="images (1).png" alt="rock-image" class="choice-image"></button>
+  <button id="paper-button" class="choice-button" onclick="
+  computerChoice = generateComputerChoice();
+  winner = winnerDecleration('Paper',computerChoice)
+  winnerMsg('Paper' , computerChoice , winner)
+  ">
+    
+    <img src="images (2).png" alt="paper-image" class="choice-image"></button>
+  
+   <button id="scissor-button" class="choice-button" onclick="
+  computerChoice = generateComputerChoice();
+  winner = winnerDecleration('Scissor',computerChoice)
+  winnerMsg('Scissor', computerChoice , winner)
+  ">
+     <img src="images (3).png" alt="scissor-image" class="choice-image">
+  
+  </button>
+  
+  <h3 id="result">Choose your move</h3>
+  <h3 id="showResult"></h3>
+  <h3 id="scoreValue"></h3>
+  <button id="resetScore" onclick="
+    resetScoreValue()
+    resetScore()
+  ">Reset</button>
+</body>
+    <script>
+    
+    let scoreStr = localStorage.getItem('Score');
+    let score;
+    if (scoreStr !== null){
+      score = JSON.parse(scoreStr)
+    } else {
+    score = {
+      Won: 0,
+      Lose: 0,
+      Draw: 0,
+     };
+    }
+    
+    
+      function generateComputerChoice(){
+        let randomNum = Math.random() * 3;
+        if (randomNum < 1) {
+          return 'Rock';
+        } else if (randomNum < 2) {
+          return 'Paper';
+        } else {
+          return 'Scissor';
+        } 
+      }
+
+    function winnerDecleration(userMove,computerMove){
+     if (userMove === 'Rock'){
+       if (computerMove === 'Rock'){
+         score.Draw++;
+         return 'Match draw';
+       } else if (computerMove === 'Paper'){
+         score.Lose++;
+         return 'You lose';
+       } else if (computerMove === 'Scissor'){
+         score.Won++;
+         return 'You won';
+       } 
+       
+     } else if (userMove === 'Paper'){
+       if (computerMove === 'Paper'){
+         score.Draw++;
+         return 'Match draw';
+       } else if (computerMove === 'Scissor'){
+         score.Lose++;
+         return 'You lose';
+       } else if (computerMove === 'Rock'){
+         score.Won++;
+         return 'You won';
+       } 
+     } else {
+       if (userMove === 'Scissor'){
+         if (computerMove === 'Scissor'){
+           score.Draw++;
+         return 'Match draw';
+       } else if (computerMove === 'Rock'){
+         score.Lose++;
+         return 'You lose';
+       } else if (computerMove === 'Paper'){
+         score.Won++;
+         return 'You won';
+       } 
+       }
+     }
+   }
+  
+    function winnerMsg(userMove , computerMove , winner){
+      
+      localStorage.setItem('Score' , JSON.stringify(score));
+      
+      document.querySelector('#result').innerText = `You have chosen ${userMove}.
+      
+       Computer's choice is ${computerMove}.`;
+      
+      document.querySelector('#showResult').innerText = winner;
+      
+      document.querySelector('#scoreValue') .innerText = `Score : Won = ${score.Won} Lost = ${score.Lose} Draw = ${score.Draw}`;
+      
+  }
+  
+    
+    
+    function resetScoreValue(){
+      document.querySelector('#result').innerText = '';
+      
+      document.querySelector('#showResult').innerText = '';
+      
+      document.querySelector('#scoreValue') .innerText =  `Won = ${0} Lost = ${0} Draw = ${0}`;
+      
+    }
+  
+  function resetScore(){
+    localStorage.clear();
+      score = {
+        Won: 0,
+        Lose: 0,
+        Draw: 0,
+      }
+    }
+  
+  
+    </script>
+</html>
